@@ -1,5 +1,15 @@
-import styles from '../styles/home.module.scss'
+//@libraries
+import Head from "next/head";
+
+//@styles
 
 export default function Home() {
-  return <h1 className={styles.title}>Hello Next.Js</h1>;
+  return (
+    <>
+      <Head>
+        <title>Início | Ig.News</title>
+      </Head>
+      <h1>Hello Next.Js</h1>
+    </>
+  );
 }
