@@ -9,7 +9,7 @@ export default function Home() {
       <Head>
         <title>Início | Ig.News</title>
       </Head>
-      <h1>Hello Next.Js</h1>
+      <h1>Ig.News</h1>
     </>
   );
 }
