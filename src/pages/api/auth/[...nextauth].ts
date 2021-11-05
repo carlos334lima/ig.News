@@ -20,8 +20,7 @@ export default NextAuth({
     async signIn(user, account, profile) {
       const { email } = user;
 
-      try {
-        //create user database
+      try { 
         await fauna.query(
           q.If(
             q.Not(
@@ -32,6 +31,7 @@ export default NextAuth({
                 )
               )
             ),
+            //create user database
             q.Create(
               q.Collection('users'),
               { data : { email } }
