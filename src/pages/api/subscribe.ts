@@ -1,9 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/client";
-import { fauna } from "../../services/fauna";
+
+//@libraries
 import { query as q } from "faunadb";
 
 //@utils
+import { fauna } from "../../services/fauna";
 import { stripe } from "../../services/stripe";
 
 type User = {
