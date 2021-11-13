@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "stripehook": "stripe listen --forward-to localhost:3000/api/webhooks"
+    "webhook": "stripe listen --forward-to localhost:3000/api/webhooks"
   },
   "dependencies": {
+    "@prismicio/client": "^5.1.0",
     "@stripe/stripe-js": "^1.21.1",
     "axios": "^0.24.0",
     "faunadb": "^4.4.1",
