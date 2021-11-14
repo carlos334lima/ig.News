@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 //@components
 import { SignInButton } from "../SignInButton";
 
@@ -8,12 +10,14 @@ export function Header() {
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
-      <img src="/images/logo.svg" alt="ig.news"/>
+        <img src="/images/logo.svg" alt="ig.news" />
         <nav>
-          <a className={styles.active} href="">
-            Home
-          </a>
-          <a href="">Posts</a>
+          <Link href="/">
+            <a className={styles.active}>Home</a>
+          </Link>
+          <Link href="/posts" prefetch>
+            <a>Posts</a>
+          </Link>
         </nav>
         <SignInButton />
       </div>
