@@ -1,6 +1,9 @@
 import { GetStaticProps } from "next";
 import Head from "next/head";
 
+//@libraries
+import { ToastContainer, toast } from "react-toastify";
+
 //@components
 import { SubscribeButton } from "../components/SubscribeButton/insdex";
 
@@ -20,6 +23,7 @@ type homeProps = {
 export default function Home({ product }: homeProps) {
   return (
     <>
+     <ToastContainer />
       <Head>
         <title>Home | Ig.News</title>
       </Head>
@@ -44,8 +48,9 @@ export default function Home({ product }: homeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const price = await stripe.prices.retrieve("price_1Jq4qNFpcm4LwVocTl2QCEU2");
+export const getStaticProps: GetStaticProps = async ( req ) => {
+  try {
+    const price = await stripe.prices.retrieve("price_1Jq4qNFpcm4LwVocTl2QCEU2");
 
   const product = {
     priceId: price.id,
@@ -61,4 +66,7 @@ export const getStaticProps: GetStaticProps = async () => {
     },
     revalidate: 60 * 60 * 24 // 24hrs
   };
+  } catch (error) {
+   throw new Error('Erro interno!' )
+  }
 };
