@@ -9,6 +9,7 @@ import styles from "./styles.module.scss";
 import { stripe } from "../../services/stripe";
 import { api } from "../../services/api";
 import { getStripeJs } from "../../services/stripe-js";
+import { useRouter } from "next/router";
 
 type SubscribeButtonProps = {
   priceId: string;
@@ -16,6 +17,7 @@ type SubscribeButtonProps = {
 
 export function SubscribeButton({ priceId }: SubscribeButtonProps) {
   const [session] = useSession();
+  const { push } = useRouter();
 
   const handleSubscribe = async () => {
     if (!session) {
@@ -30,24 +32,29 @@ export function SubscribeButton({ priceId }: SubscribeButtonProps) {
         signIn("Github");
       }, 1000);
       return;
-    } else {
-      try {
-        const response = await api.post("/subscribe");
+    }
 
-        const { sessionId } = response.data;
+    if (session.activeSubscription) {
+      push("/posts");
+      return;
+    }
 
-        const stripe = await getStripeJs();
+    try {
+      const response = await api.post("/subscribe");
 
-        await stripe.redirectToCheckout({ sessionId: sessionId });
-      } catch (error) {
-        toast("Ops! houve um error interno.", {
-          style: {
-            backgroundColor: "#29292e",
-            color: "#fff",
-          },
-        });
-        alert(error.message);
-      }
+      const { sessionId } = response.data;
+
+      const stripe = await getStripeJs();
+
+      await stripe.redirectToCheckout({ sessionId: sessionId });
+    } catch (error) {
+      toast("Ops! houve um error interno.", {
+        style: {
+          backgroundColor: "#29292e",
+          color: "#fff",
+        },
+      });
+      alert(error.message);
     }
   };
 
